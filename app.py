@@ -33,3 +33,22 @@ def random_gif():
     gif_url = f"{blob_url}/{folder}/{gif_name}"
 
     return {"random_gif_url": gif_url}
+
+
+@app.get("/spank")
+def spank_gif():
+    # Obtén el token y la URL base del blob desde las variables de entorno
+    api_url = os.getenv("API")  # Base del blob storage
+
+  # Configuración: carpeta y número total de GIFs
+    folder = "spanks"
+    total_gifs = 47  # Número total de GIFs
+
+    # Selecciona un número aleatorio para el GIF (0 a total_gifs - 1)
+    gif_number = random.randint(0, total_gifs - 1)
+    gif_name = f"spank_{gif_number:03}.gif"  # Formato: spank_000.gif, spank_001.gif, ...
+
+    # Construye la URL del archivo
+    gif_url = f"{api_url}/{folder}/{gif_name}"
+
+    return {"random_gif_url": gif_url}
