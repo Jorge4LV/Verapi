@@ -17,22 +17,24 @@ def main():
         "message": "Hello my friend"
     }
 
-@app.get("/list-blob-files")
-def list_blob_files():
-    # Obtén la URL base del blob storage desde las variables de entorno
-    blob_url = os.getenv("BLOB_READ_WRITE_TOKEN")
+@app.get("/random-gif")
+def random_gif():
+    # Obtén el token del blob desde las variables de entorno
+    blob_url = os.getenv("BLOB_STORAGE_URL")  # Base del blob storage
+    token = os.getenv("BLOB_STORAGE_TOKEN")  # Token seguro para el acceso
 
-    if not blob_url:
-        return {"error": "Blob storage URL not configured"}, 500
+    if not blob_url or not token:
+        return {"error": "Blob storage URL or token not configured"}, 500
 
-    # Listado de archivos, podría ser dinámico o estático
-    files = [
-        "GIF_20240912_192846_755-32SLGRY1PGOUsTrKcvw5LVXmXIq7nz.gif",
-        "file2.png",
-        "file3.txt"
-    ]
+    # Configuración: carpeta y rango de archivos
+    folder = "Spanks"
+    max_gifs = 1000  # Ajusta según el número máximo estimado de GIFs
 
-    # Construir las URLs completas
-    file_urls = [f"{blob_url}/{file}" for file in files]
-    return {"files": file_urls}
-    
+    # Selecciona un número aleatorio para el GIF
+    gif_number = random.randint(0, max_gifs - 1)
+    gif_name = f"spank_{gif_number:03}.gif"  # Formato: spank_000.gif, spank_001.gif, ...
+
+    # Construye la URL del archivo
+    gif_url = f"{blob_url}/{folder}/{gif_name}"
+
+    return {"random_gif_url": gif_url}
