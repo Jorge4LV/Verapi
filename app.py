@@ -20,7 +20,7 @@ def main():
 @app.get("/list-blob-files")
 def list_blob_files():
     # Obtén la URL base del blob storage desde las variables de entorno
-    blob_url = os.getenv("BLOB_STORAGE_URL")
+    blob_url = os.getenv("BLOB_READ_WRITE_TOKEN")
 
     if not blob_url:
         return {"error": "Blob storage URL not configured"}, 500
