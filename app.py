@@ -21,7 +21,7 @@ def main():
 def random_gif():
     # Obtén el token del blob desde las variables de entorno
     blob_url = os.getenv("BLOB_STORAGE_URL")  # Base del blob storage
-    token = os.getenv("BLOB_STORAGE_TOKEN")  # Token seguro para el acceso
+    token = os.getenv("BLOB_READ_WRITE_TOKEN")  # Token seguro para el acceso
 
     if not blob_url or not token:
         return {"error": "Blob storage URL or token not configured"}, 500
