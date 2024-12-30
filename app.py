@@ -1,30 +1,25 @@
+
 from fastapi import FastAPI
 import os
-import datetime
+import random
 
 app = FastAPI()
 
-@app.get("/example/{parameter}")
-def example(parameter: str):
-    return {
-        "parameter": parameter,
-        "datetime": datetime.datetime.now().time()
-    }
-
 @app.get("/")
 def main():
-    return {
-        "message": "Hello my friend"
-    }
+    return {"message": "Hello my friend"}
 
-@app.get("/random-gif")
+@app.get("/random")
 def random_gif():
-    # Obtén el token del blob desde las variables de entorno
+    # Obtén el token y la URL base del blob desde las variables de entorno
     blob_url = os.getenv("BLOB_STORAGE_URL")  # Base del blob storage
     token = os.getenv("BLOB_READ_WRITE_TOKEN")  # Token seguro para el acceso
 
-    if not blob_url or not token:
-        return {"error": "Blob storage URL or token not configured"}, 500
+    if not blob_url:
+        return {"error": "Blob storage URL not configured"}, 500
+
+    if not token:
+        return {"error": "Blob storage token not configured"}, 500
 
     # Configuración: carpeta y rango de archivos
     folder = "Spanks"
@@ -37,4 +32,7 @@ def random_gif():
     # Construye la URL del archivo
     gif_url = f"{blob_url}/{folder}/{gif_name}"
 
+    # Validar si el archivo existe (opcional)
+    # Si deseas validar, puedes usar requests para comprobar la existencia del archivo
+    # Por ahora, simplemente retornamos el enlace generado
     return {"random_gif_url": gif_url}
