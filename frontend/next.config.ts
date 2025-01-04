@@ -1,7 +1,7 @@
-import type { NextConfig } from "next";
+import { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  output: "standalone", // Necesario para trabajar en Vercel con múltiples builds
 };
 
 export default nextConfig;
