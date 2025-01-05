@@ -15,7 +15,7 @@ DEFAULT_FOLDER = "spanks"  # Carpeta predeterminada
 def get_blob_url(folder: str):
     """Obtiene la URL base del blob y valida las variables de entorno."""
     api_url = os.getenv("API")  # URL base del blob storage
-    token = os.getenv("TOKENDUDUA")  # Token seguro para el acceso
+    token = os.getenv("TOKEN")  # Token seguro para el acceso
 
     if not api_url:
         raise HTTPException(status_code=500, detail="Blob storage URL not configured")
@@ -55,7 +55,7 @@ def get_gif(reaction: str, token: str = Query(None, description="Authentication 
     - token: Token de autenticación.
     """
     # Validar el token
-    expected_token = os.getenv("ACCESS_TOKEN")
+    expected_token = os.getenv("TOKENDUDUA")
     if not token or token != expected_token:
         raise HTTPException(status_code=403, detail="Invalid or missing token")
 
