@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import { Flex, Text, Button, Heading, Box } from "@chakra-ui/react"; // Usamos Chakra UI para estilos simples.
+import { Flex, Text, Button, Heading, Box } from "@chakra-ui/react"; // Chakra UI para estilos simples.
 
 export default function Home() {
   const discordInviteLink = "https://discord.gg/tu-invite"; // Reemplaza con tu link de invitación.
