@@ -15,7 +15,7 @@ DEFAULT_FOLDER = "spanks"  # Carpeta predeterminada
 def get_blob_url(folder: str):
     """Obtiene la URL base del blob y valida las variables de entorno."""
     api_url = os.getenv("API")  # URL base del blob storage
-    token = os.getenv("BLOB_READ_WRITE_TOKEN")  # Token seguro para el acceso
+    token = os.getenv("TOKENDUDUA")  # Token seguro para el acceso
 
     if not api_url:
         raise HTTPException(status_code=500, detail="Blob storage URL not configured")
