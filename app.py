@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Request
 import os
 import random
 
@@ -9,16 +9,21 @@ def main():
     return {"message": "Hello my friend"}
 
 def check_token(token: str):
-    # Compara el token proporcionado con el valor de la variable de entorno
+    # Obtiene el token esperado desde la variable de entorno TOKENDUDUA
     expected_token = os.getenv("TOKENDUDUA")
     if token != expected_token:
         raise HTTPException(status_code=403, detail="Forbidden: Invalid token")
 
 @app.get("/random")
-def random_gif(token: str):
+def random_gif(request: Request):
+    # Obtén el token de los parámetros de la solicitud
+    token = request.query_params.get("token")
+    if not token:
+        raise HTTPException(status_code=400, detail="Bad Request: Token is required")
+    
     check_token(token)  # Verifica el token antes de proceder
 
-    # Obtén el enlace base de la variable de entorno API en Vercel
+    # Obtén la URL base de la variable de entorno API
     api_url = os.getenv("API")
     if not api_url:
         raise HTTPException(status_code=500, detail="API base URL not configured")
@@ -37,10 +42,15 @@ def random_gif(token: str):
     return {"random_gif_url": gif_url}
 
 @app.get("/spank")
-def spank_gif(token: str):
+def spank_gif(request: Request):
+    # Obtén el token de los parámetros de la solicitud
+    token = request.query_params.get("token")
+    if not token:
+        raise HTTPException(status_code=400, detail="Bad Request: Token is required")
+    
     check_token(token)  # Verifica el token antes de proceder
 
-    # Obtén el enlace base de la variable de entorno API en Vercel
+    # Obtén la URL base de la variable de entorno API
     api_url = os.getenv("API")
     if not api_url:
         raise HTTPException(status_code=500, detail="API base URL not configured")
@@ -59,10 +69,15 @@ def spank_gif(token: str):
     return {"random_gif_url": gif_url}
 
 @app.get("/sape")
-def sape_gif(token: str):
+def sape_gif(request: Request):
+    # Obtén el token de los parámetros de la solicitud
+    token = request.query_params.get("token")
+    if not token:
+        raise HTTPException(status_code=400, detail="Bad Request: Token is required")
+    
     check_token(token)  # Verifica el token antes de proceder
 
-    # Obtén el enlace base de la variable de entorno API en Vercel
+    # Obtén la URL base de la variable de entorno API
     api_url = os.getenv("API")
     if not api_url:
         raise HTTPException(status_code=500, detail="API base URL not configured")
